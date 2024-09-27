@@ -2,7 +2,7 @@ import mysql.connector
 from geopy.distance import distance
 
 def maanlentokenttienlokaatioidenkeskiarvo(maannimi):
-
+    #Esimerkki
     listalokaatioista = (f"select latitude_deg, longitude_deg from airport, country where airport.iso_country = country.iso_country and country.name = '{maannimi}';")
     kursori = yhteys.cursor()
     kursori.execute(listalokaatioista)
