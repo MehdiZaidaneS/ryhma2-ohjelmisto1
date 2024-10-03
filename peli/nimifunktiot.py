@@ -7,7 +7,7 @@ connection = mysql.connector.connect(
     port= 3306,
     host="localhost",
     user="root",
-    password="password",
+    password="mehdizaidane1",
     database="flight_game",
     autocommit=True
 )
@@ -39,16 +39,17 @@ def checkscreenname(): #Checking if the username already exists on the database.
 def addusername():
     ## Setting the name of the player
     global currentScreenName
-    currentScreenName = (input("Enter your name: "))
+    currentScreenName = (input("Tervetuloa Maapallo peliin!\nSyötä nimesi: "))
 
     getusers()
 
     ## In case is a new user, username added to database.
     if not checkscreenname():
-        sql =f"INSERT INTO game (screen_name, id) VALUES ('{currentScreenName}', {len(users)+1}, {5})"
+        sql =f"INSERT INTO game (screen_name, id, highest_score, latest_score) VALUES ('{currentScreenName}', {len(users)+1}, {0}, {0})"
         cursor = connection.cursor()
         cursor.execute(sql)
 
+    return print(f"Korkein pistemäärä on: {getHighestScore()}\nViimeisin tulos on: {getLatestScore()}\n")
 
 
 def getHighestScore():
@@ -58,7 +59,7 @@ def getHighestScore():
     cursor.execute(sql)
     result = cursor.fetchall()
     for row in result:
-       return print(row[0])
+       return row[0]
 
 
 def getLatestScore():
@@ -68,11 +69,22 @@ def getLatestScore():
     cursor.execute(sql)
     result = cursor.fetchall()
     for row in result:
-         return print(row[0])
+         return row[0]
+
+
+def addHighestScore(score):
+    global currentScreenName
+    if score > getHighestScore():
+        sql = f"UPDATE game SET highest_score = {score} WHERE screen_name = '{currentScreenName}'"
+        cursor = connection.cursor()
+        cursor.execute(sql)
+
+
+def addLatestScore(score):
+    global currentScreenName
+    sql= f"UPDATE game SET latest_score = {score} WHERE screen_name = '{currentScreenName}'"
+    cursor = connection.cursor()
+    cursor.execute(sql)
 
 
 
-
-addusername()
-getHighestScore()
-getLatestScore()
