@@ -36,8 +36,15 @@ def start():
             #Jos pelaaja arvaa väärin, se jatkuu, kunnes hän saavuttaa 5 yritystä.
             elif maannimi != maa:
                 print(f"Väärin, yritä uudelleen! {yritykset-1} yritystä jäljellä.")
+
+                #etäisyys maannimi ja maa välillä:
+                distancebetween = distance(maanlentokenttienlokaatioidenkeskiarvo(maa),maanlentokenttienlokaatioidenkeskiarvo(maannimi))
+                print(f"Maiden välinen etäisyys {distancebetween}")
+
                 if yritykset == 1:
                    print(f"Oikea maa oli {maa}.\n")
+
+            
 
             yritykset -= 1
 
