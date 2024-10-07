@@ -58,25 +58,69 @@ def suunta(arvattumaa,tavoitemaa):
     #funktio suunta saa parametreiksi arvatun maan lokaation ja oikean maan lokaation
     #laskee maiden välisen kulman olettaen että pohjoinen on 0/360 etelä 180 jne
     #palauttaa kulman arvon
+    #https://www.igismap.com/formula-to-find-bearing-or-heading-angle-between-two-points-latitude-longitude/
+
+    #latitudet ja longitudet täytyy nataa radiaaneissa
+    lat1 = arvattumaa[0]*math.pi/180
+    lat2 = tavoitemaa[0]*math.pi/180
+    lon1 = arvattumaa[1]*math.pi/180
+    lon2 = tavoitemaa[1]*math.pi/180
+    x = math.cos(lat2)*math.sin(lon2-lon1)
+    y = math.cos(lat1)*math.sin(lat2) - math.sin(lat1)*math.cos(lat2)*math.cos(lon2-lon1)
+
+    bearing = math.atan2(y,x)
+    # antaa bearing nyt radiaaneina välillä (pi ,-pi)
+
+    return bearing
+
+
+def ilmansuunta(kulmaradiaaneina):
+    #funktio muuttaa suuntafunktion kulman ilmansuunnaksi
+    #yksikköympyrä jaetaan kkuuteentoista samankokoiseen osaan
+    #Ilmansuunta annetaan sen mukaan mihin osaan saatu kulmaradiaaneina osuu
+
+    if -math.pi/8 <= kulmaradiaaneina < math.pi/8:
+        return "itään"
+    if math.pi/8 <= kulmaradiaaneina < 3*math.pi/8:
+        return "koilliseen"
+    if 3*math.pi/8 <= kulmaradiaaneina < 5*math.pi/8:
+        return "pohjoiseen"
+    if 5*math.pi/8 <= kulmaradiaaneina < 7*math.pi/8:
+        return "luoteeseen"
+    if -3*math.pi/8 <= kulmaradiaaneina < -math.pi/8:
+        return "kaakkoon"
+    if -5*math.pi/8 <= kulmaradiaaneina < -3*math.pi/8:
+        return "etelään"
+    if -7*math.pi/8 <= kulmaradiaaneina < -5*math.pi/8:
+        return "lounaaseen"
+    if 7*math.pi/8 <= kulmaradiaaneina or kulmaradiaaneina <  -7*math.pi/8:
+        return "länteen"
     
 
-
     return 0
-
-
 
 yhteys = mysql.connector.connect(
     host="localhost",
     port= 3306,
     database="flight_game",
-    user="user2",
+    user="alek",
     password="1234",
     autocommit=True
 )
 
 
 
-x = maanlentokenttienlokaatioidenkeskiarvo("Italy")
-print(x)
 
-print(randommaa())
+
+
+print(maanlentokenttienlokaatioidenkeskiarvo("Finland"))
+print(maanlentokenttienlokaatioidenkeskiarvo("Estonia"))
+
+
+testimuuttuja = suunta(maanlentokenttienlokaatioidenkeskiarvo("Japan"),maanlentokenttienlokaatioidenkeskiarvo("russia"))
+
+print(testimuuttuja)
+
+testimuuttuja2 = ilmansuunta(testimuuttuja)
+
+print(testimuuttuja2)
