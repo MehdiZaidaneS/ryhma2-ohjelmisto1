@@ -37,9 +37,19 @@ def start():
             elif maannimi != maa:
                 print(f"Väärin, yritä uudelleen! {yritykset-1} yritystä jäljellä.")
 
-                #etäisyys maannimi ja maa välillä:a
-                distancebetween = distance(maanlentokenttienlokaatioidenkeskiarvo(maa),maanlentokenttienlokaatioidenkeskiarvo(maannimi))
+                maannimi_lokaatio = maanlentokenttienlokaatioidenkeskiarvo(maannimi)
+                maa_lokaatio = maanlentokenttienlokaatioidenkeskiarvo(maa)
+
+                #etäisyys maannimi ja maa välillä:
+                distancebetween = distance(maa_lokaatio,maannimi_lokaatio)
                 print(f"Maiden välinen etäisyys {distancebetween}")
+                
+                #suunta
+                direction = suunta(maannimi_lokaatio,maa_lokaatio)
+                cardinaldirection = ilmansuunta(direction)
+
+                print(f"Oikea maa on {cardinaldirection}.")
+
 
                 if yritykset == 1:
                    print(f"Oikea maa oli {maa}.\n")

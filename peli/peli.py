@@ -44,7 +44,9 @@ def maanlentokenttienlokaatioidenkeskiarvo(maannimi):
         latitide_deg_summa = latitide_deg_summa + i[0]
         longitude_deg_summa = longitude_deg_summa + i[1]
         counter = counter + 1
-
+    if counter == 0:
+        counter += 1
+    
     latitude_keskiarvo = latitide_deg_summa/counter
     longitude_keskiarvo = longitude_deg_summa/counter
 
@@ -80,21 +82,21 @@ def ilmansuunta(kulmaradiaaneina):
     #Ilmansuunta annetaan sen mukaan mihin osaan saatu kulmaradiaaneina osuu
 
     if -math.pi/8 <= kulmaradiaaneina < math.pi/8:
-        return "itään"
+        return "idässä"
     if math.pi/8 <= kulmaradiaaneina < 3*math.pi/8:
-        return "koilliseen"
+        return "koillisessa"
     if 3*math.pi/8 <= kulmaradiaaneina < 5*math.pi/8:
-        return "pohjoiseen"
+        return "pohjoisessa"
     if 5*math.pi/8 <= kulmaradiaaneina < 7*math.pi/8:
-        return "luoteeseen"
+        return "luoteessa"
     if -3*math.pi/8 <= kulmaradiaaneina < -math.pi/8:
-        return "kaakkoon"
+        return "kaakossa"
     if -5*math.pi/8 <= kulmaradiaaneina < -3*math.pi/8:
-        return "etelään"
+        return "etelässä"
     if -7*math.pi/8 <= kulmaradiaaneina < -5*math.pi/8:
-        return "lounaaseen"
+        return "lounaassa"
     if 7*math.pi/8 <= kulmaradiaaneina or kulmaradiaaneina <  -7*math.pi/8:
-        return "länteen"
+        return "lännessä"
     
 
     return 0
@@ -113,7 +115,7 @@ yhteys = mysql.connector.connect(
 
 
 
-print(maanlentokenttienlokaatioidenkeskiarvo("Finland"))
+print(maanlentokenttienlokaatioidenkeskiarvo("Egypt"))
 print(maanlentokenttienlokaatioidenkeskiarvo("Estonia"))
 
 
