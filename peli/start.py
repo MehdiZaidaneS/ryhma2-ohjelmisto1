@@ -37,7 +37,7 @@ def start():
             elif maannimi != maa:
                 print(f"Väärin, yritä uudelleen! {yritykset-1} yritystä jäljellä.")
 
-                #etäisyys maannimi ja maa välillä:
+                #etäisyys maannimi ja maa välillä:a
                 distancebetween = distance(maanlentokenttienlokaatioidenkeskiarvo(maa),maanlentokenttienlokaatioidenkeskiarvo(maannimi))
                 print(f"Maiden välinen etäisyys {distancebetween}")
 

@@ -6,8 +6,8 @@ currentScreenName = ""
 connection = mysql.connector.connect(
     port= 3306,
     host="localhost",
-    user="root",
-    password="mehdizaidane1",
+    user="alek",
+    password="1234",
     database="flight_game",
     autocommit=True
 )
